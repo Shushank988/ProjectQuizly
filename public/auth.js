@@ -230,6 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('registerName').value.trim();
             const username = document.getElementById('registerUsername').value.trim();
             const email = document.getElementById('registerEmail').value.trim();
+            const college = document.getElementById('registerCollege').value.trim();
+            const department = document.getElementById('registerDept').value;
+            const semester = document.getElementById('registerSemester').value;
             const password = document.getElementById('registerPassword').value;
             const confirm = document.getElementById('confirmPassword').value;
             const role = document.querySelector('input[name="role"]:checked')?.value;
@@ -253,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const res = await fetch(`${API}/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password, role })
+                    body: JSON.stringify({ name, email, password, role, username, college, department, semester })
                 });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error);
