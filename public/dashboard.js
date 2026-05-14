@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </td>
                                 <td>
                                     <div style="display:flex;align-items:center;gap:10px;">
-                                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(l.full_name)}" style="width:32px;height:32px;border-radius:50%;background:${l.avatar_color || 'var(--primary)'};object-fit:cover;">
+                                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(l.email || l.full_name)}" style="width:32px;height:32px;border-radius:50%;background:${l.avatar_color || 'var(--primary)'};object-fit:cover;">
                                         <strong>${l.full_name}</strong>
                                     </div>
                                 </td>

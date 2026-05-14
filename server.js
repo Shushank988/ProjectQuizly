@@ -197,7 +197,7 @@ app.get('/api/student/results', auth, requireRole('student'), async (req, res) =
 app.get('/api/leaderboard', auth, async (req, res) => {
     try {
         const [leaders] = await db.query(
-            `SELECT u.full_name, u.avatar_color, AVG(qa.percentage) as avg_score, COUNT(qa.attempt_id) as attempts
+            `SELECT u.full_name, u.email, u.avatar_color, AVG(qa.percentage) as avg_score, COUNT(qa.attempt_id) as attempts
              FROM quiz_attempts qa JOIN users u ON qa.student_id = u.id
              GROUP BY qa.student_id ORDER BY avg_score DESC LIMIT 20`
         );
