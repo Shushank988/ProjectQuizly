@@ -313,6 +313,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
+    // ========== LOAD LEADERBOARD ==========
+    async function loadLeaderboard() {
+        try {
+            const leaders = await apiFetch('/leaderboard');
+            const tbody = document.getElementById('leaderboardBody');
+            if (!tbody) return;
+            if (leaders.length === 0) {
+                tbody.innerHTML = '<div class="empty-state"><i class="fas fa-medal"></i><p>No leaderboard data yet. Be the first to take a quiz!</p></div>';
+                return;
+            }
+            tbody.innerHTML = `
+                <table class="results-table">
+                    <thead><tr><th>Rank</th><th>Student</th><th>Average Score</th><th>Quizzes Taken</th></tr></thead>
+                    <tbody>
+                        ${leaders.map((l, i) => `
+                            <tr>
+                                <td>
+                                    ${i === 0 ? '<i class="fas fa-crown" style="color:gold;font-size:1.2rem;"></i>' : 
+                                      i === 1 ? '<i class="fas fa-medal" style="color:silver;font-size:1.2rem;"></i>' : 
+                                      i === 2 ? '<i class="fas fa-medal" style="color:#cd7f32;font-size:1.2rem;"></i>' : 
+                                      `<strong>#${i+1}</strong>`}
+                                </td>
+                                <td>
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <div class="user-avatar" style="background:${l.avatar_color || 'var(--primary)'};width:32px;height:32px;font-size:0.9rem;">${l.full_name.charAt(0).toUpperCase()}</div>
+                                        <strong>${l.full_name}</strong>
+                                    </div>
+                                </td>
+                                <td><span class="status-pass" style="background:var(--bg-glass);">${l.avg_score}%</span></td>
+                                <td>${l.attempts}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        } catch (err) { console.error('Failed to load leaderboard', err); }
+    }
+
     // ========== QUIZ RULES MODAL ==========
     let selectedQuizId = null;
 
@@ -366,4 +404,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========== INIT ==========
     loadQuizzes();
     loadResults();
+    loadLeaderboard();
 });
