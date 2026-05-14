@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results — Quizly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: var(--dark); }
+        .result-page { min-height: 100vh; padding: 40px 20px; display: flex; align-items: center; justify-content: center; }
+        .result-container { max-width: 700px; width: 100%; }
+        .result-hero { text-align: center; margin-bottom: 32px; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .result-circle {
+            width: 160px; height: 160px; border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin: 0 auto 24px; position: relative;
+        }
+        .result-circle::before {
+            content: ''; position: absolute; inset: -6px; border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.06); border-top-color: var(--primary);
+            animation: spin 3s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .result-circle h2 { font-size: 2.8rem; font-weight: 900; line-height: 1; }
+        .result-circle span { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
+        .result-status { display: inline-block; padding: 8px 28px; border-radius: var(--radius-full); font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+        .status-passed { background: rgba(78,205,196,0.15); color: var(--accent); border: 1px solid rgba(78,205,196,0.3); }
+        .status-failed { background: rgba(255,107,107,0.15); color: var(--secondary); border: 1px solid rgba(255,107,107,0.3); }
+        .result-hero h3 { font-size: 1.3rem; font-weight: 700; margin: 12px 0 4px; }
+        .result-hero p { color: var(--text-dim); font-size: 0.9rem; }
+
+        .result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+        .result-stat {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius); padding: 20px; text-align: center;
+        }
+        .result-stat h4 { font-size: 1.5rem; font-weight: 800; }
+        .result-stat p { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; }
+
+        .breakdown-section { margin-bottom: 20px; }
+        .breakdown-section h3 {
+            font-size: 1rem; font-weight: 700; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .breakdown-section h3 i { color: var(--primary); }
+
+        .breakdown-item {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-sm); padding: 18px 20px; margin-bottom: 10px;
+        }
+        .breakdown-q { font-size: 0.92rem; font-weight: 600; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
+        .breakdown-q i { margin-top: 3px; flex-shrink: 0; }
+        .breakdown-q i.fa-check-circle { color: var(--accent); }
+        .breakdown-q i.fa-times-circle { color: var(--secondary); }
+        .breakdown-answers { display: flex; gap: 16px; font-size: 0.82rem; flex-wrap: wrap; }
+        .breakdown-answers span { padding: 4px 12px; border-radius: 6px; }
+        .ans-correct { background: rgba(78,205,196,0.1); color: var(--accent); }
+        .ans-wrong { background: rgba(255,107,107,0.1); color: var(--secondary); text-decoration: line-through; }
+
+        .result-actions { display: flex; gap: 12px; margin-top: 24px; }
+        .result-actions .btn { flex: 1; justify-content: center; }
+
+        @media (max-width: 480px) {
+            .result-stats { grid-template-columns: 1fr; }
+            .result-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="result-page">
+        <div class="result-container">
+            <div class="result-hero">
+                <div class="result-circle" id="resultCircle">
+                    <h2 id="resultPercent">0%</h2>
+                    <span>Score</span>
+                </div>
+                <div id="resultStatus"></div>
+                <h3 id="resultMessage">Calculating your results...</h3>
+                <p id="resultSub"></p>
+            </div>
+            <div class="result-stats" id="resultStats"></div>
+            <div class="breakdown-section">
+                <h3><i class="fas fa-list-check"></i> Answer Breakdown</h3>
+                <div id="breakdownList"></div>
+            </div>
+            <div class="result-actions">
+                <a href="student-dashboard.html" class="btn btn-outline"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="student-dashboard.html" class="btn btn-primary" onclick="localStorage.removeItem('latest_result');"><i class="fas fa-redo"></i> Take Another Quiz</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const result = JSON.parse(localStorage.getItem('latest_result'));
+            if (!result) { window.location.href = 'student-dashboard.html'; return; }
+
+            const pct = result.percentage || Math.round((result.total_score / result.total_possible_marks) * 100);
+            const passed = pct >= 50;
+
+            document.getElementById('resultPercent').textContent = pct + '%';
+            const circle = document.getElementById('resultCircle');
+            circle.style.background = passed ? 'rgba(78,205,196,0.1)' : 'rgba(255,107,107,0.1)';
+            circle.style.border = `2px solid ${passed ? 'rgba(78,205,196,0.3)' : 'rgba(255,107,107,0.3)'}`;
+
+            document.getElementById('resultStatus').innerHTML = `<span class="result-status ${passed ? 'status-passed' : 'status-failed'}">${passed ? '🎉 PASSED' : '❌ FAILED'}</span>`;
+            document.getElementById('resultMessage').textContent = passed ? 'Great job! Keep it up!' : 'Don\'t worry, try again!';
+            document.getElementById('resultSub').textContent = `You scored ${result.total_score} out of ${result.total_possible_marks}`;
+
+            const correct = result.breakdown?.filter(b => b.is_correct).length || 0;
+            const wrong = (result.breakdown?.length || 0) - correct;
+            document.getElementById('resultStats').innerHTML = `
+                <div class="result-stat"><h4 class="text-gradient">${result.total_score}/${result.total_possible_marks}</h4><p>Total Score</p></div>
+                <div class="result-stat"><h4 style="color:var(--accent);">${correct}</h4><p>Correct</p></div>
+                <div class="result-stat"><h4 style="color:var(--secondary);">${wrong}</h4><p>Incorrect</p></div>
+            `;
+
+            const list = document.getElementById('breakdownList');
+            if (result.breakdown) {
+                list.innerHTML = result.breakdown.map((b, i) => `
+                    <div class="breakdown-item">
+                        <div class="breakdown-q">
+                            <i class="fas ${b.is_correct ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                            <span>Q${i + 1}: ${b.question_text || 'Question ' + (i + 1)}</span>
+                        </div>
+                        <div class="breakdown-answers">
+                            ${b.selected_answer ? `<span class="${b.is_correct ? 'ans-correct' : 'ans-wrong'}">Your: ${b.selected_answer}</span>` : '<span class="ans-wrong">Not answered</span>'}
+                            ${!b.is_correct ? `<span class="ans-correct">Correct: ${b.correct_answer}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>

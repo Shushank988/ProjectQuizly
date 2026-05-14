@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Panel — Quizly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+<div class="dash-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="nav-logo"><i class="fas fa-bolt text-gradient"></i><span>Quizly</span></a>
+            <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-link active" data-page="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="#" class="sidebar-link" data-page="create"><i class="fas fa-plus-circle"></i><span>Create Quiz</span></a>
+            <a href="#" class="sidebar-link" data-page="manage"><i class="fas fa-cog"></i><span>Manage Quizzes</span></a>
+            <a href="#" class="sidebar-link" data-page="results"><i class="fas fa-chart-bar"></i><span>Student Results</span></a>
+            <a href="#" class="sidebar-link" data-page="analytics"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="#" class="sidebar-link" data-page="profile"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="sidebar-link logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+        </div>
+    </aside>
+
+    <div class="dash-main">
+        <!-- TOPBAR -->
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="topbar-welcome"><h2>Teacher Panel <span class="text-gradient" id="userName"></span></h2><p id="topbarDate"></p></div>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-avatar" id="topbarAvatar"><span id="avatarInitials">T</span></div>
+            </div>
+        </header>
+
+        <!-- PAGE: DASHBOARD -->
+        <div class="dash-page active" id="page-dashboard">
+            <div class="stats-grid" id="teacherStats">
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(108,99,255,0.15);color:var(--primary);"><i class="fas fa-book-open"></i></div><div class="stat-info"><p>Quizzes Created</p><h3 id="statQuizzes">0</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(78,205,196,0.15);color:var(--accent);"><i class="fas fa-users"></i></div><div class="stat-info"><p>Total Attempts</p><h3 id="statAttempts">0</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(255,107,107,0.15);color:var(--secondary);"><i class="fas fa-chart-pie"></i></div><div class="stat-info"><p>Avg Score</p><h3 id="statAvg">0%</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(255,163,108,0.15);color:#FFA36C;"><i class="fas fa-question-circle"></i></div><div class="stat-info"><p>Total Questions</p><h3 id="statQCount">0</h3></div></div>
+            </div>
+            <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-list"></i> Recent Quizzes</h3></div><div class="card-body" id="recentQuizzes"><div class="empty-state"><i class="fas fa-inbox"></i><p>Create your first quiz!</p></div></div></div>
+        </div>
+
+        <!-- PAGE: CREATE QUIZ -->
+        <div class="dash-page" id="page-create">
+            <div class="page-header"><h2><i class="fas fa-plus-circle text-gradient"></i> Create New Quiz</h2></div>
+            <div class="glass-card dash-card"><div class="card-body">
+                <form id="createQuizForm">
+                    <div class="form-row"><div class="form-group"><label>Quiz Title <span class="required">*</span></label><div class="input-wrapper"><i class="fas fa-heading"></i><input type="text" class="form-control" id="cqTitle" placeholder="e.g. Physics Midterm" required></div></div>
+                    <div class="form-group"><label>Subject <span class="required">*</span></label><div class="input-wrapper"><i class="fas fa-flask"></i><input type="text" class="form-control" id="cqSubject" placeholder="e.g. Physics" required></div></div></div>
+                    <div class="form-row"><div class="form-group"><label>Difficulty</label><div class="input-wrapper"><i class="fas fa-signal"></i><select class="form-control" id="cqDifficulty"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select></div></div>
+                    <div class="form-group"><label>Category</label><div class="input-wrapper"><i class="fas fa-tag"></i><input type="text" class="form-control" id="cqCategory" placeholder="e.g. Science"></div></div></div>
+                    <div class="form-row"><div class="form-group"><label>Timer (minutes) <span class="required">*</span></label><div class="input-wrapper"><i class="fas fa-clock"></i><input type="number" class="form-control" id="cqTimer" placeholder="30" min="1" required></div></div>
+                    <div class="form-group"><label>Total Marks <span class="required">*</span></label><div class="input-wrapper"><i class="fas fa-star"></i><input type="number" class="form-control" id="cqMarks" placeholder="100" min="1" required></div></div></div>
+                    <div class="form-group"><label>Instructions</label><textarea class="form-control" id="cqInstructions" placeholder="Enter quiz instructions..." style="min-height:80px;padding:14px 18px;"></textarea></div>
+                    <div class="form-row" style="margin-bottom:20px;">
+                        <label class="checkbox-label"><input type="checkbox" id="cqNegative"><span class="custom-check"></span> Enable Negative Marking</label>
+                        <label class="checkbox-label"><input type="checkbox" id="cqRandomize"><span class="custom-check"></span> Randomize Questions</label>
+                    </div>
+                    <div class="form-group" id="negValueGroup" style="display:none;"><label>Negative Mark Value</label><div class="input-wrapper"><i class="fas fa-minus-circle"></i><input type="number" class="form-control" id="cqNegValue" placeholder="0.25" step="0.25" min="0"></div></div>
+                    <button type="submit" class="btn btn-primary btn-submit" id="createQuizBtn"><span class="btn-text"><i class="fas fa-plus"></i> Create Quiz</span><span class="btn-loader"><i class="fas fa-spinner fa-spin"></i></span></button>
+                </form>
+            </div></div>
+
+            <!-- Questions Section (shown after quiz creation) -->
+            <div id="questionsSection" style="display:none;margin-top:24px;">
+                <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-list-ol"></i> Add Questions — <span id="questionsQuizTitle"></span></h3><button class="btn btn-primary btn-sm" id="addQuestionBtn"><i class="fas fa-plus"></i> Add Question</button></div>
+                <div class="card-body" id="questionsContainer"></div>
+                <div style="padding:0 24px 24px;"><button class="btn btn-primary btn-submit" id="publishQuestionsBtn"><span class="btn-text"><i class="fas fa-paper-plane"></i> Publish All Questions</span><span class="btn-loader"><i class="fas fa-spinner fa-spin"></i></span></button></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: MANAGE QUIZZES -->
+        <div class="dash-page" id="page-manage">
+            <div class="page-header"><h2><i class="fas fa-cog text-gradient"></i> Manage Quizzes</h2></div>
+            <div class="results-table-wrap"><table class="results-table"><thead><tr><th>Title</th><th>Subject</th><th>Difficulty</th><th>Questions</th><th>Attempts</th><th>Status</th><th>Actions</th></tr></thead><tbody id="manageBody"><tr><td colspan="7" class="empty-cell"><div class="empty-state"><i class="fas fa-inbox"></i><p>No quizzes yet</p></div></td></tr></tbody></table></div>
+        </div>
+
+        <!-- PAGE: STUDENT RESULTS -->
+        <div class="dash-page" id="page-results">
+            <div class="page-header"><h2><i class="fas fa-chart-bar text-gradient"></i> Student Results</h2></div>
+            <div class="results-table-wrap"><table class="results-table"><thead><tr><th>Student</th><th>Email</th><th>Quiz</th><th>Score</th><th>%</th><th>Date</th><th>Status</th></tr></thead><tbody id="studentResultsBody"><tr><td colspan="7" class="empty-cell"><div class="empty-state"><i class="fas fa-inbox"></i><p>No results yet</p></div></td></tr></tbody></table></div>
+        </div>
+
+        <!-- PAGE: ANALYTICS -->
+        <div class="dash-page" id="page-analytics">
+            <div class="page-header"><h2><i class="fas fa-chart-line text-gradient"></i> Performance Analytics</h2></div>
+            <div class="dash-grid-2">
+                <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-trophy"></i> Top Scorers</h3></div><div class="card-body" id="topScorers"><div class="empty-state"><i class="fas fa-medal"></i><p>No data yet</p></div></div></div>
+                <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-book"></i> Quiz Performance</h3></div><div class="card-body" id="quizPerf"><div class="empty-state"><i class="fas fa-chart-area"></i><p>No data yet</p></div></div></div>
+            </div>
+            <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-flask"></i> Subject Performance</h3></div><div class="card-body" id="subjectPerf"><div class="empty-state"><i class="fas fa-chart-bar"></i><p>No data yet</p></div></div></div>
+        </div>
+
+        <!-- PAGE: PROFILE -->
+        <div class="dash-page" id="page-profile">
+            <div class="page-header"><h2><i class="fas fa-user-circle text-gradient"></i> My Profile</h2></div>
+            <div class="glass-card dash-card profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar"><span id="profInit">T</span></div>
+                    <div class="profile-info">
+                        <h3 id="profName">Teacher</h3>
+                        <p id="profEmail"></p>
+                        <span class="badge-student" style="background:rgba(78,205,196,0.15);color:var(--accent);">Teacher</span>
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; padding:0 24px 24px;">
+                    <div class="profile-detail">
+                        <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Username</span>
+                        <p id="profUsername" style="font-weight:600;margin-top:4px;">—</p>
+                    </div>
+                    <div class="profile-detail">
+                        <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">College / Institution</span>
+                        <p id="profCollege" style="font-weight:600;margin-top:4px;">—</p>
+                    </div>
+                    <div class="profile-detail">
+                        <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Department</span>
+                        <p id="profDept" style="font-weight:600;margin-top:4px;">—</p>
+                    </div>
+                    <div class="profile-detail">
+                        <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Member Since</span>
+                        <p id="profJoined" style="font-weight:600;margin-top:4px;">—</p>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card dash-card" style="margin-top:24px; border-color:rgba(255,107,107,0.2);">
+                <div class="card-body" style="padding:24px;">
+                    <h4 style="color:var(--secondary);margin-bottom:8px;"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+                    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:16px;">Permanently delete your account and all quizzes, questions, and data you created. This action cannot be undone.</p>
+                    <button class="btn btn-sm" id="deleteAccountBtn" style="background:rgba(255,107,107,0.15);color:var(--secondary);border:1px solid var(--secondary);"><i class="fas fa-trash-alt"></i> Delete My Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="app.js"></script>
+<script src="teacher.js"></script>
+</body>
+</html>

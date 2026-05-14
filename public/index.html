@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizly — Smart Online Quiz Platform</title>
+    <meta name="description" content="Quizly is a premium online quiz platform. Create, manage, and attempt quizzes with instant results, leaderboards, and analytics.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-bolt text-gradient"></i>
+                <span>Quizly</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="auth.html" class="btn btn-outline btn-sm">Login</a>
+                <a href="auth.html#register" class="btn btn-primary btn-sm">Register</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="home">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Smart Online <span class="text-gradient">Quiz Management</span> System</h1>
+                    <p>Create, manage, and attempt quizzes anytime, anywhere. Empowering educators and students with a seamless, modern examination experience.</p>
+                    <div class="hero-buttons">
+                        <a href="auth.html#register" class="btn btn-primary" id="heroGetStarted">
+                            Get Started <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#features" class="btn btn-outline" id="heroExplore">
+                            Explore Features <i class="fas fa-sparkles"></i>
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <h3 class="text-gradient">500+</h3>
+                            <p>Quizzes Created</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3 class="text-gradient2">2K+</h3>
+                            <p>Students Active</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3 class="text-gradient">98%</h3>
+                            <p>Satisfaction Rate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card-stack">
+                        <div class="floating-card">
+                            <div class="card-icon" style="background:rgba(108,99,255,0.2);color:var(--primary);">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h4>Physics Quiz</h4>
+                            <p>15 Questions · 30 Minutes</p>
+                            <div class="card-progress"><div class="card-progress-bar"></div></div>
+                        </div>
+                        <div class="floating-card">
+                            <div class="card-icon" style="background:rgba(78,205,196,0.2);color:var(--accent);">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h4>Score: 92%</h4>
+                            <p>Excellent Performance! 🎉</p>
+                        </div>
+                        <div class="floating-card">
+                            <div class="card-icon" style="background:rgba(255,107,107,0.2);color:var(--secondary);">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Analytics</h4>
+                            <p>Track your progress over time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-visual">
+                    <div class="glass-card about-card fade-up">
+                        <i class="fas fa-chalkboard-teacher text-gradient"></i>
+                        <h4>For Teachers</h4>
+                        <p>Create & manage quizzes effortlessly</p>
+                    </div>
+                    <div class="glass-card about-card fade-up">
+                        <i class="fas fa-user-graduate text-gradient2"></i>
+                        <h4>For Students</h4>
+                        <p>Attempt quizzes & track results</p>
+                    </div>
+                    <div class="glass-card about-card fade-up">
+                        <i class="fas fa-shield-alt text-gradient"></i>
+                        <h4>Secure</h4>
+                        <p>JWT auth & encrypted passwords</p>
+                    </div>
+                    <div class="glass-card about-card fade-up">
+                        <i class="fas fa-mobile-alt text-gradient2"></i>
+                        <h4>Responsive</h4>
+                        <p>Works on all devices seamlessly</p>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <span class="section-label">About Quizly</span>
+                    <h2>A <span class="text-gradient">Complete Platform</span> for Modern Education</h2>
+                    <p>Quizly bridges the gap between teachers and students by providing an intuitive, feature-rich quiz management system designed for the digital age.</p>
+                    <ul class="about-list">
+                        <li><i class="fas fa-check-circle"></i> Teachers can create MCQ & True/False quizzes</li>
+                        <li><i class="fas fa-check-circle"></i> Timer-based exams with auto-submission</li>
+                        <li><i class="fas fa-check-circle"></i> Instant scoring with detailed breakdowns</li>
+                        <li><i class="fas fa-check-circle"></i> Dashboard analytics for performance tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Role-based access for security</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section class="section features" id="features">
+        <div class="container text-center">
+            <span class="section-label">Features</span>
+            <h2 class="section-title">Everything You Need to <span class="text-gradient">Succeed</span></h2>
+            <p class="section-subtitle">Packed with powerful features to make quiz management effortless and engaging.</p>
+            <div class="features-grid">
+                <div class="glass-card feature-card fade-up">
+                    <div class="feature-icon" style="background:rgba(108,99,255,0.15);color:var(--primary);">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Quiz Creation</h3>
+                    <p>Build quizzes with MCQs, True/False questions, custom marks, and difficulty levels in minutes.</p>
+                </div>
+                <div class="glass-card feature-card fade-up">
+                    <div class="feature-icon" style="background:rgba(255,107,107,0.15);color:var(--secondary);">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3>Timer-Based Exams</h3>
+                    <p>Set time limits for each quiz. Auto-submit ensures fairness when time runs out.</p>
+                </div>
+                <div class="glass-card feature-card fade-up">
+                    <div class="feature-icon" style="background:rgba(78,205,196,0.15);color:var(--accent);">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Instant Results</h3>
+                    <p>Get detailed scores, correct answers, and performance breakdowns immediately after submission.</p>
+                </div>
+                <div class="glass-card feature-card fade-up">
+                    <div class="feature-icon" style="background:rgba(255,163,108,0.15);color:#FFA36C;">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Leaderboard</h3>
+                    <p>Compare your performance with peers. Top scorers get highlighted on the leaderboard.</p>
+                </div>
+                <div class="glass-card feature-card fade-up">
+                    <div class="feature-icon" style="background:rgba(69,183,209,0.15);color:var(--accent2);">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure Login</h3>
+                    <p>JWT-based authentication with bcrypt password hashing. Role-based access control.</p>
+                </div>
+                <div class="glass-card feature-card fade-up">
+                    <div class="feature-icon" style="background:rgba(150,206,180,0.15);color:#96CEB4;">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Performance Analytics</h3>
+                    <p>Detailed dashboards for teachers and students with stats, trends, and insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS ========== -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container text-center">
+            <span class="section-label">How It Works</span>
+            <h2 class="section-title">Get Started in <span class="text-gradient">5 Simple Steps</span></h2>
+            <p class="section-subtitle">From registration to results — the entire journey is smooth and intuitive.</p>
+            <div class="steps-grid">
+                <div class="step-card fade-up">
+                    <div class="step-number">1</div>
+                    <h4>Register / Login</h4>
+                    <p>Create your account as a student or teacher</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-number">2</div>
+                    <h4>Select Quiz</h4>
+                    <p>Browse available quizzes from your dashboard</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-number">3</div>
+                    <h4>Attempt Questions</h4>
+                    <p>Answer questions within the time limit</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-number">4</div>
+                    <h4>Submit Quiz</h4>
+                    <p>Review and submit your answers securely</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-number">5</div>
+                    <h4>Get Results</h4>
+                    <p>View instant scores and detailed breakdowns</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container text-center">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title">What Our Users <span class="text-gradient">Say</span></h2>
+            <p class="section-subtitle">Hear from teachers and students who use Quizly every day.</p>
+            <div class="testimonials-grid">
+                <div class="glass-card testimonial-card fade-up">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Quizly transformed how I manage exams. Creating quizzes takes minutes, and the analytics help me understand student performance instantly."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background:var(--gradient1);">RP</div>
+                        <div>
+                            <h5>Dr. Rajesh Patel</h5>
+                            <span>Professor, Computer Science</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card testimonial-card fade-up">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"The timer feature and instant results make online exams feel professional. I love the clean interface and smooth experience."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background:var(--gradient2);">AS</div>
+                        <div>
+                            <h5>Ananya Sharma</h5>
+                            <span>B.Tech Student, 3rd Year</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card testimonial-card fade-up">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Best quiz platform I've used. The dark theme looks amazing, and the mobile-responsive design lets me take quizzes on my phone."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background:linear-gradient(135deg,#4ECDC4,#45B7D1);">MK</div>
+                        <div>
+                            <h5>Mohammad Khan</h5>
+                            <span>MCA Student, 2nd Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="text-center" style="margin-bottom:48px;">
+                <span class="section-label">Contact Us</span>
+                <h2 class="section-title">Get In <span class="text-gradient">Touch</span></h2>
+                <p class="section-subtitle">Have questions or feedback? We'd love to hear from you.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>Reach out for support, partnerships, or just to say hello. We respond within 24 hours.</p>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                        <div><h5>Email</h5><p>lyricscentre1451@gmail.com</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+                        <div><h5>Phone</h5><p>+91 78891 87556</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><h5>Location</h5><p>New Delhi, India</p></div>
+                    </div>
+                    <div class="footer-social" style="margin-top:28px;">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <form class="glass-card contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="contactName">Full Name</label>
+                        <input type="text" class="form-control" id="contactName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address</label>
+                        <input type="email" class="form-control" id="contactEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea class="form-control" id="contactMessage" placeholder="Write your message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo"><i class="fas fa-bolt text-gradient"></i> Quizly</a>
+                    <p>A premium online quiz management platform empowering educators and students worldwide.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#features">Features</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="auth.html">Dashboard</a>
+                    <a href="auth.html">Take a Quiz</a>
+                    <a href="auth.html">Teacher Panel</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <span style="color:var(--text-dim);font-size:0.88rem;">Quizly is an open-source educational project.</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Quizly. All rights reserved. Built with ❤️ for education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

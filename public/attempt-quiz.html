@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz — Quizly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body class="quiz-body">
+
+    <!-- QUIZ TOPBAR -->
+    <header class="quiz-topbar">
+        <div class="quiz-topbar-left">
+            <i class="fas fa-bolt text-gradient"></i>
+            <div>
+                <h3 id="quizTitle">Loading Quiz...</h3>
+                <span id="quizSubject"></span>
+            </div>
+        </div>
+        <div class="quiz-timer" id="quizTimer">
+            <i class="fas fa-clock"></i>
+            <span id="timerDisplay">00:00</span>
+        </div>
+    </header>
+
+    <!-- QUIZ LAYOUT -->
+    <main class="quiz-layout">
+
+        <!-- QUESTION AREA -->
+        <div class="quiz-content">
+            <!-- Progress -->
+            <div class="quiz-progress-wrap">
+                <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill"></div></div>
+                <span class="quiz-progress-text" id="progressText">0 / 0</span>
+            </div>
+
+            <!-- Anti-cheat Warning -->
+            <div class="anti-cheat-banner" id="antiCheatBanner" style="display:none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Warning: Tab switching detected! Stay focused on the quiz.</span>
+            </div>
+
+            <!-- Loading -->
+            <div class="quiz-loading" id="quizLoading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading quiz questions...</p>
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-card" id="questionCard" style="display:none;">
+                <div class="question-header">
+                    <span class="question-number" id="questionNumber">Q1</span>
+                    <span class="question-marks" id="questionMarks">1 mark</span>
+                </div>
+                <h2 class="question-text" id="questionText"></h2>
+                <div class="options-list" id="optionsList"></div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="quiz-nav" id="quizNav" style="display:none;">
+                <button class="btn btn-outline" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="btn btn-outline" id="markReviewBtn"><i class="fas fa-flag"></i> Mark for Review</button>
+                <button class="btn btn-primary" id="nextBtn">Next <i class="fas fa-arrow-right"></i></button>
+                <button class="btn btn-secondary" id="submitQuizBtn" style="display:none;"><i class="fas fa-paper-plane"></i> Submit Quiz</button>
+            </div>
+        </div>
+
+        <!-- QUESTION NAV PANEL -->
+        <div class="quiz-sidebar" id="quizSidebar">
+            <h4>Questions</h4>
+            <div class="question-nav-grid" id="questionNavGrid"></div>
+            <div class="nav-legend">
+                <div class="legend-item"><span class="legend-dot answered"></span> Answered</div>
+                <div class="legend-item"><span class="legend-dot review"></span> Review</div>
+                <div class="legend-item"><span class="legend-dot unanswered"></span> Not Answered</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Submit Confirmation Modal -->
+    <div class="modal-overlay" id="submitModal">
+        <div class="modal-card">
+            <div class="modal-icon" style="background:rgba(255,163,108,0.15);color:#FFA36C;"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3>Submit Quiz?</h3>
+            <p>Are you sure you want to submit? You won't be able to change your answers after submission.</p>
+            <div class="submit-summary" id="submitSummary"></div>
+            <div class="modal-actions" style="justify-content:center; gap:12px;">
+                <button class="btn btn-outline" id="cancelSubmit">Go Back</button>
+                <button class="btn btn-primary" id="confirmSubmit"><i class="fas fa-paper-plane"></i> Confirm Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Up Modal -->
+    <div class="modal-overlay" id="timeUpModal">
+        <div class="modal-card">
+            <div class="modal-icon" style="background:rgba(255,107,107,0.15);color:var(--secondary);"><i class="fas fa-hourglass-end"></i></div>
+            <h3>Time's Up!</h3>
+            <p>Your quiz is being auto-submitted. Please wait...</p>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="app.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Quizly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+<div class="dash-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header"><a href="index.html" class="nav-logo"><i class="fas fa-bolt text-gradient"></i><span>Quizly</span></a><button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button></div>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-link active" data-page="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="#" class="sidebar-link" data-page="users"><i class="fas fa-users"></i><span>Manage Users</span></a>
+            <a href="#" class="sidebar-link" data-page="quizzes"><i class="fas fa-book-open"></i><span>All Quizzes</span></a>
+            <a href="#" class="sidebar-link" data-page="messages"><i class="fas fa-envelope"></i><span>Messages</span></a>
+            <a href="#" class="sidebar-link" data-page="analytics"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+        </nav>
+        <div class="sidebar-footer"><button class="sidebar-link logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button></div>
+    </aside>
+
+    <div class="dash-main">
+        <header class="dash-topbar">
+            <div class="topbar-left"><button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button><div class="topbar-welcome"><h2><span class="text-gradient">Admin Panel</span></h2><p id="topbarDate"></p></div></div>
+            <div class="topbar-right"><div class="topbar-avatar" style="background:var(--gradient2);"><span>A</span></div></div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <div class="dash-page active" id="page-dashboard">
+            <div class="stats-grid" style="grid-template-columns:repeat(5,1fr);">
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(108,99,255,0.15);color:var(--primary);"><i class="fas fa-user-graduate"></i></div><div class="stat-info"><p>Students</p><h3 id="sStudents">0</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(78,205,196,0.15);color:var(--accent);"><i class="fas fa-chalkboard-teacher"></i></div><div class="stat-info"><p>Teachers</p><h3 id="sTeachers">0</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(255,107,107,0.15);color:var(--secondary);"><i class="fas fa-book-open"></i></div><div class="stat-info"><p>Quizzes</p><h3 id="sQuizzes">0</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(255,163,108,0.15);color:#FFA36C;"><i class="fas fa-check-circle"></i></div><div class="stat-info"><p>Attempts</p><h3 id="sAttempts">0</h3></div></div>
+                <div class="stat-card"><div class="stat-icon" style="background:rgba(150,206,180,0.15);color:#96CEB4;"><i class="fas fa-chart-line"></i></div><div class="stat-info"><p>Avg Score</p><h3 id="sAvg">0%</h3></div></div>
+            </div>
+        </div>
+
+        <!-- USERS -->
+        <div class="dash-page" id="page-users">
+            <div class="page-header"><h2><i class="fas fa-users text-gradient"></i> Manage Users</h2>
+                <div class="filters"><select class="filter-select" id="userRoleFilter"><option value="">All Roles</option><option value="student">Students</option><option value="teacher">Teachers</option></select></div>
+            </div>
+            <div class="results-table-wrap"><table class="results-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>College</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="usersBody"></tbody></table></div>
+        </div>
+
+        <!-- QUIZZES -->
+        <div class="dash-page" id="page-quizzes">
+            <div class="page-header"><h2><i class="fas fa-book-open text-gradient"></i> All Quizzes</h2></div>
+            <div class="results-table-wrap"><table class="results-table"><thead><tr><th>Title</th><th>Subject</th><th>Teacher</th><th>Questions</th><th>Attempts</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adminQuizzesBody"></tbody></table></div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="dash-page" id="page-analytics">
+            <div class="page-header"><h2><i class="fas fa-chart-line text-gradient"></i> System Analytics</h2></div>
+            <div class="dash-grid-2">
+                <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-trophy"></i> Top Students</h3></div><div class="card-body" id="adminTopStudents"><div class="empty-state"><i class="fas fa-medal"></i><p>No data</p></div></div></div>
+                <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-chalkboard-teacher"></i> Top Teachers</h3></div><div class="card-body" id="adminTopTeachers"><div class="empty-state"><i class="fas fa-medal"></i><p>No data</p></div></div></div>
+            </div>
+            <div class="glass-card dash-card"><div class="card-header"><h3><i class="fas fa-calendar-alt"></i> Monthly Activity</h3></div><div class="card-body" id="monthlyStats"><div class="empty-state"><i class="fas fa-chart-area"></i><p>No data yet</p></div></div></div>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="dash-page" id="page-messages">
+            <div class="page-header"><h2><i class="fas fa-envelope text-gradient"></i> Contact Messages</h2></div>
+            <div class="results-table-wrap"><table class="results-table"><thead><tr><th>Name</th><th>Email</th><th>Message</th><th>Date</th><th>Actions</th></tr></thead><tbody id="messagesBody"><tr><td colspan="5" class="empty-cell"><div class="empty-state"><i class="fas fa-inbox"></i><p>No messages yet</p></div></td></tr></tbody></table></div>
+        </div>
+    </div>
+</div>
+<div id="toastContainer" class="toast-container"></div>
+<script src="app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const API = 'http://localhost:5000/api';
+    const token = localStorage.getItem('jwt_token');
+    const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+    if (!token || userData.role !== 'admin') { window.location.href = 'auth.html'; return; }
+
+    document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Nav
+    const pages = document.querySelectorAll('.dash-page');
+    const links = document.querySelectorAll('.sidebar-link[data-page]');
+    function sw(p) { pages.forEach(x => x.classList.remove('active')); links.forEach(x => x.classList.remove('active')); document.getElementById('page-'+p)?.classList.add('active'); document.querySelector(`.sidebar-link[data-page="${p}"]`)?.classList.add('active'); document.getElementById('sidebar')?.classList.remove('open'); }
+    links.forEach(l => l.addEventListener('click', e => { e.preventDefault(); sw(l.dataset.page); }));
+    document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar')?.classList.toggle('open'));
+    document.getElementById('sidebarClose')?.addEventListener('click', () => document.getElementById('sidebar')?.classList.remove('open'));
+    document.getElementById('logoutBtn')?.addEventListener('click', () => { localStorage.clear(); window.location.href = 'auth.html'; });
+
+    async function api(endpoint, options = {}) {
+        const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...options.headers };
+        const res = await fetch(`${API}${endpoint}`, { ...options, headers });
+        if (res.status === 401 || res.status === 403) { localStorage.clear(); window.location.href = 'auth.html'; return null; }
+        const data = await res.json(); if (!res.ok) throw new Error(data.error); return data;
+    }
+
+    // Stats
+    async function loadStats() {
+        try {
+            const s = await api('/admin/stats');
+            document.getElementById('sStudents').textContent = s.students;
+            document.getElementById('sTeachers').textContent = s.teachers;
+            document.getElementById('sQuizzes').textContent = s.quizzes;
+            document.getElementById('sAttempts').textContent = s.attempts;
+            document.getElementById('sAvg').textContent = s.avgScore + '%';
+        } catch (e) {}
+    }
+
+    // Users
+    let allUsers = [];
+    async function loadUsers() {
+        try {
+            allUsers = await api('/admin/users') || [];
+            renderUsers(allUsers);
+        } catch (e) {}
+    }
+    function renderUsers(users) {
+        const tbody = document.getElementById('usersBody');
+        if (!tbody) return;
+        tbody.innerHTML = users.map(u => `<tr>
+            <td><strong>${u.full_name}</strong></td><td>${u.email}</td>
+            <td><span class="quiz-card-badge badge-${u.role === 'teacher' ? 'medium' : 'easy'}">${u.role}</span></td>
+            <td>${u.college_name || '—'}</td>
+            <td><span class="${u.is_blocked ? 'status-fail' : 'status-pass'}">${u.is_blocked ? 'Blocked' : 'Active'}</span></td>
+            <td>${new Date(u.created_at).toLocaleDateString()}</td>
+            <td style="display:flex;gap:6px;">
+                <button class="btn btn-outline btn-sm" style="padding:4px 8px;font-size:0.7rem;" onclick="toggleBlock(${u.id}, ${!u.is_blocked})"><i class="fas fa-${u.is_blocked ? 'unlock' : 'ban'}"></i></button>
+                ${u.role !== 'admin' ? `<button class="btn btn-outline btn-sm" style="padding:4px 8px;font-size:0.7rem;color:var(--secondary);border-color:var(--secondary);" onclick="deleteUser(${u.id})"><i class="fas fa-trash"></i></button>` : ''}
+            </td></tr>`).join('');
+    }
+    document.getElementById('userRoleFilter')?.addEventListener('change', e => {
+        const val = e.target.value;
+        renderUsers(val ? allUsers.filter(u => u.role === val) : allUsers);
+    });
+    window.toggleBlock = async (id, blocked) => {
+        try { await api(`/admin/users/${id}/block`, { method: 'PUT', body: JSON.stringify({ blocked }) }); showToast(blocked ? 'User blocked' : 'User unblocked', 'success'); loadUsers(); } catch (e) { showToast(e.message, 'error'); }
+    };
+    window.deleteUser = async (id) => {
+        if (!confirm('Delete this user permanently?')) return;
+        try { await api(`/admin/users/${id}`, { method: 'DELETE' }); showToast('User deleted', 'success'); loadUsers(); loadStats(); } catch (e) { showToast(e.message, 'error'); }
+    };
+
+    // Quizzes
+    async function loadQuizzes() {
+        try {
+            const quizzes = await api('/admin/quizzes') || [];
+            const tbody = document.getElementById('adminQuizzesBody');
+            if (!tbody) return;
+            tbody.innerHTML = quizzes.map(q => `<tr>
+                <td><strong>${q.title}</strong></td><td>${q.subject}</td><td>${q.teacher_name}</td>
+                <td>${q.question_count}</td><td>${q.attempt_count}</td>
+                <td><span class="${q.is_active ? 'status-pass' : 'status-fail'}">${q.is_active ? 'Active' : 'Inactive'}</span></td>
+                <td><button class="btn btn-outline btn-sm" style="padding:4px 8px;font-size:0.7rem;color:var(--secondary);border-color:var(--secondary);" onclick="deleteQuizAdmin(${q.quiz_id})"><i class="fas fa-trash"></i></button></td>
+            </tr>`).join('');
+        } catch (e) {}
+    }
+    window.deleteQuizAdmin = async (id) => {
+        if (!confirm('Delete this quiz?')) return;
+        try { await api(`/quizzes/${id}`, { method: 'DELETE' }); showToast('Quiz deleted', 'success'); loadQuizzes(); loadStats(); } catch (e) { showToast(e.message, 'error'); }
+    };
+
+    // Analytics
+    async function loadAnalytics() {
+        try {
+            const data = await api('/admin/analytics');
+            const ts = document.getElementById('adminTopStudents');
+            if (ts && data.topStudents?.length > 0) {
+                ts.innerHTML = data.topStudents.map((s, i) => `<div class="activity-item"><div class="activity-dot" style="background:${i < 3 ? 'gold' : 'var(--primary)'};"></div><div class="activity-info"><h5>#${i+1} ${s.full_name}</h5><span>${s.total_attempts} attempts</span></div><span class="activity-score" style="color:var(--accent);">${s.avg_score}%</span></div>`).join('');
+            }
+            const tt = document.getElementById('adminTopTeachers');
+            if (tt && data.topTeachers?.length > 0) {
+                tt.innerHTML = data.topTeachers.map((t, i) => `<div class="activity-item"><div class="activity-dot" style="background:var(--accent);"></div><div class="activity-info"><h5>${t.full_name}</h5><span>${t.quizzes_created} quizzes · ${t.total_attempts} student attempts</span></div></div>`).join('');
+            }
+            const ms = document.getElementById('monthlyStats');
+            if (ms && data.monthlyStats?.length > 0) {
+                ms.innerHTML = data.monthlyStats.map(m => `<div class="activity-item"><div class="activity-dot" style="background:var(--primary);"></div><div class="activity-info"><h5>${m.month}</h5><span>${m.attempts} attempts</span></div><span class="activity-score">${m.avg_score}%</span></div>`).join('');
+            }
+        } catch (e) {}
+    }
+
+    // Messages
+    async function loadMessages() {
+        try {
+            const msgs = await api('/admin/messages');
+            const tbody = document.getElementById('messagesBody');
+            if (msgs.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-cell"><div class="empty-state"><i class="fas fa-inbox"></i><p>No messages yet</p></div></td></tr>'; return; }
+            tbody.innerHTML = msgs.map(m => `
+                <tr>
+                    <td><strong>${m.sender_name}</strong></td>
+                    <td><a href="mailto:${m.sender_email}" style="color:var(--primary);text-decoration:none;">${m.sender_email}</a></td>
+                    <td style="max-width:300px; white-space:pre-wrap; font-size:0.85rem; color:var(--text-dim);">${m.message}</td>
+                    <td>${new Date(m.created_at).toLocaleDateString()}</td>
+                    <td><button class="btn btn-sm" onclick="deleteMessageAdmin(${m.message_id})" style="background:rgba(255,107,107,0.1);color:var(--secondary);border:none;padding:6px 10px;"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        } catch (e) { console.error('Failed to load messages'); }
+    }
+    
+    window.deleteMessageAdmin = async (id) => {
+        if (!confirm('Delete this message permanently?')) return;
+        try { await api(`/admin/messages/${id}`, { method: 'DELETE' }); showToast('Message deleted', 'success'); loadMessages(); } catch (e) { showToast(e.message, 'error'); }
+    };
+
+    loadStats(); loadUsers(); loadQuizzes(); loadAnalytics(); loadMessages();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — Quizly</title>
+    <meta name="description" content="Create your Quizly account to start taking quizzes, track your performance, and compete with peers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-bolt text-gradient"></i>
+                <span>Quizly</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="#" class="auth-nav-active" id="navLoginLink">Login</a></li>
+                <li><a href="#" id="navRegisterLink">Register</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- AUTH CONTAINER -->
+    <main class="auth-page">
+        <div class="auth-particles" id="authParticles"></div>
+
+        <div class="container">
+            <div class="auth-wrapper">
+
+                <!-- LEFT: Illustration & Welcome -->
+                <div class="auth-sidebar" id="authSidebar">
+                    <div class="auth-sidebar-content">
+                        <div class="sidebar-icon-grid">
+                            <div class="sidebar-float-card" style="animation-delay:0s;">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="sidebar-float-card" style="animation-delay:-2s;">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="sidebar-float-card" style="animation-delay:-4s;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="sidebar-float-card" style="animation-delay:-1s;">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                        <h2 id="sidebarTitle">Welcome Back!</h2>
+                        <p id="sidebarText">Login to access your dashboard, attempt quizzes, and track your progress.</p>
+                        <div class="sidebar-stats">
+                            <div class="sidebar-stat"><i class="fas fa-users"></i><span>2K+ Students</span></div>
+                            <div class="sidebar-stat"><i class="fas fa-book-open"></i><span>500+ Quizzes</span></div>
+                            <div class="sidebar-stat"><i class="fas fa-star"></i><span>4.9 Rating</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Forms -->
+                <div class="auth-form-container">
+
+                    <!-- Tab Switcher -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" id="loginTab" data-tab="login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                        <button class="auth-tab" id="registerTab" data-tab="register">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                        <div class="tab-indicator" id="tabIndicator"></div>
+                    </div>
+
+                    <!-- ===== LOGIN FORM ===== -->
+                    <form class="auth-form active" id="loginForm" novalidate>
+                        <div class="form-header">
+                            <h2>Sign In</h2>
+                            <p>Enter your credentials to access your account</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" data-target="loginPassword" aria-label="Toggle password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="justify-content:space-between;align-items:center;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="custom-check"></span> Remember me
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit" id="loginBtn">
+                            <span class="btn-text">Sign In</span>
+                            <span class="btn-loader"><i class="fas fa-spinner fa-spin"></i></span>
+                            <i class="fas fa-arrow-right btn-arrow"></i>
+                        </button>
+
+                        <div class="motivational-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"Success is the sum of small efforts, repeated day in and day out."</p>
+                            <span>— Robert Collier</span>
+                        </div>
+
+                        <p class="form-switch">
+                            Don't have an account? <a href="#" id="switchToRegister">Register Here</a>
+                        </p>
+                    </form>
+
+                    <!-- ===== REGISTER FORM ===== -->
+                    <form class="auth-form" id="registerForm" novalidate>
+                        <div class="form-header">
+                            <h2>Create Account</h2>
+                            <p>Fill in your details to get started with Quizly</p>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="form-progress">
+                            <div class="form-progress-bar" id="formProgressBar"></div>
+                            <span class="form-progress-text" id="formProgressText">0% Complete</span>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registerName">Full Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" class="form-control" id="registerName" placeholder="John Doe" required>
+                                </div>
+                                <span class="validation-msg" id="nameMsg"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="registerUsername">Username <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-at"></i>
+                                    <input type="text" class="form-control" id="registerUsername" placeholder="johndoe123" required>
+                                </div>
+                                <span class="validation-msg" id="usernameMsg"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">Email Address <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" class="form-control" id="registerEmail" placeholder="john@example.com" required>
+                            </div>
+                            <span class="validation-msg" id="emailMsg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerCollege">College / Institution</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-university"></i>
+                                <input type="text" class="form-control" id="registerCollege" placeholder="e.g. IIT Delhi">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registerDept">Department</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-building-columns"></i>
+                                    <select class="form-control" id="registerDept">
+                                        <option value="" disabled selected>Select Department</option>
+                                        <option value="CSE">CSE</option>
+                                        <option value="ISE">ISE</option>
+                                        <option value="ECE">ECE</option>
+                                        <option value="EEE">EEE</option>
+                                        <option value="ME">Mechanical</option>
+                                        <option value="CE">Civil</option>
+                                        <option value="AI/ML">AI / ML</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="registerSemester">Semester</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-layer-group"></i>
+                                    <select class="form-control" id="registerSemester">
+                                        <option value="" disabled selected>Select Semester</option>
+                                        <option value="1">1st Semester</option>
+                                        <option value="2">2nd Semester</option>
+                                        <option value="3">3rd Semester</option>
+                                        <option value="4">4th Semester</option>
+                                        <option value="5">5th Semester</option>
+                                        <option value="6">6th Semester</option>
+                                        <option value="7">7th Semester</option>
+                                        <option value="8">8th Semester</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerRole">Register As <span class="required">*</span></label>
+                            <div class="role-selector">
+                                <label class="role-option active" id="roleStudent">
+                                    <input type="radio" name="role" value="student" checked hidden>
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Student</span>
+                                </label>
+                                <label class="role-option" id="roleTeacher">
+                                    <input type="radio" name="role" value="teacher" hidden>
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Teacher</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registerPassword">Password <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" class="form-control" id="registerPassword" placeholder="Min 6 characters" required>
+                                    <button type="button" class="toggle-password" data-target="registerPassword" aria-label="Toggle password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="password-strength" id="passwordStrength">
+                                    <div class="strength-bars">
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                    </div>
+                                    <span class="strength-text" id="strengthText"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter password" required>
+                                    <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Toggle password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="validation-msg" id="confirmMsg"></span>
+                            </div>
+                        </div>
+
+                        <label class="checkbox-label" style="margin-bottom:20px;">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span class="custom-check"></span>
+                            I agree to the <a href="#" class="form-link">Terms & Conditions</a> and <a href="#" class="form-link">Privacy Policy</a>
+                        </label>
+
+                        <button type="submit" class="btn btn-primary btn-submit" id="registerBtn">
+                            <span class="btn-text">Create Account</span>
+                            <span class="btn-loader"><i class="fas fa-spinner fa-spin"></i></span>
+                            <i class="fas fa-arrow-right btn-arrow"></i>
+                        </button>
+
+                        <p class="form-switch">
+                            Already have an account? <a href="#" id="switchToLogin">Login Here</a>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card">
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Registration Successful!</h3>
+            <p>Your account has been created. You can now login to access quizzes and track your performance.</p>
+            <button class="btn btn-primary" id="modalLoginBtn" style="width:100%;justify-content:center;">
+                <i class="fas fa-sign-in-alt"></i> Go to Login
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

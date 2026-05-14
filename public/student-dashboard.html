@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Quizly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+    <div class="dash-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="nav-logo"><i class="fas fa-bolt text-gradient"></i><span>Quizly</span></a>
+                <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-link active" data-page="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="#" class="sidebar-link" data-page="quizzes"><i class="fas fa-book-open"></i><span>Available Quizzes</span></a>
+                <a href="#" class="sidebar-link" data-page="results"><i class="fas fa-chart-bar"></i><span>My Results</span></a>
+                <a href="#" class="sidebar-link" data-page="leaderboard"><i class="fas fa-trophy"></i><span>Leaderboard</span></a>
+                <a href="#" class="sidebar-link" data-page="profile"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-link logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="dash-main">
+
+            <!-- TOP NAV -->
+            <header class="dash-topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                    <div class="topbar-welcome">
+                        <h2>Welcome back, <span class="text-gradient" id="userName">Student</span> 👋</h2>
+                        <p id="topbarDate"></p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search quizzes..." id="globalSearch">
+                    </div>
+                    <div class="notif-wrapper" id="notifWrapper">
+                        <button class="topbar-icon" id="notifBtn"><i class="fas fa-bell"></i><span class="notif-dot" id="notifDot" style="display:none;"></span></button>
+                        <div class="notif-dropdown" id="notifDropdown">
+                            <div class="notif-header"><h4>Notifications</h4><button id="markAllRead" style="background:none;border:none;color:var(--primary);font-size:0.78rem;cursor:pointer;">Mark all read</button></div>
+                            <div class="notif-list" id="notifList">
+                                <div class="empty-state" style="padding:20px;"><i class="fas fa-bell-slash"></i><p>No notifications yet</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topbar-avatar" id="topbarAvatar">
+                        <span id="avatarInitials">S</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGE: DASHBOARD -->
+            <div class="dash-page active" id="page-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:rgba(108,99,255,0.15);color:var(--primary);"><i class="fas fa-book-open"></i></div>
+                        <div class="stat-info"><p>Available Quizzes</p><h3 id="statTotal">0</h3></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:rgba(78,205,196,0.15);color:var(--accent);"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info"><p>Quizzes Attempted</p><h3 id="statAttempted">0</h3></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:rgba(255,107,107,0.15);color:var(--secondary);"><i class="fas fa-star"></i></div>
+                        <div class="stat-info"><p>Highest Score</p><h3 id="statHighest">—</h3></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:rgba(255,163,108,0.15);color:#FFA36C;"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-info"><p>Avg Performance</p><h3 id="statAvg">—</h3></div>
+                    </div>
+                </div>
+
+                <!-- Recent + Performance -->
+                <div class="dash-grid-2">
+                    <div class="glass-card dash-card">
+                        <div class="card-header"><h3><i class="fas fa-history"></i> Recent Activity</h3></div>
+                        <div class="card-body" id="recentActivity">
+                            <div class="empty-state"><i class="fas fa-inbox"></i><p>No recent activity yet. Start a quiz!</p></div>
+                        </div>
+                    </div>
+                    <div class="glass-card dash-card">
+                        <div class="card-header"><h3><i class="fas fa-chart-area"></i> Performance Overview</h3></div>
+                        <div class="card-body">
+                            <div class="perf-chart" id="perfChart">
+                                <div class="chart-bars" id="chartBars"></div>
+                                <div class="chart-labels" id="chartLabels"></div>
+                            </div>
+                            <div class="empty-state" id="chartEmpty"><i class="fas fa-chart-pie"></i><p>Complete quizzes to see performance data</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming -->
+                <div class="glass-card dash-card">
+                    <div class="card-header"><h3><i class="fas fa-bell"></i> Upcoming Quizzes</h3></div>
+                    <div class="card-body" id="upcomingQuizzes">
+                        <div class="empty-state"><i class="fas fa-calendar-check"></i><p>No upcoming quizzes at the moment.</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: QUIZZES -->
+            <div class="dash-page" id="page-quizzes">
+                <div class="page-header">
+                    <h2><i class="fas fa-book-open text-gradient"></i> Available Quizzes</h2>
+                    <div class="filters">
+                        <div class="filter-search"><i class="fas fa-search"></i><input type="text" placeholder="Search by subject..." id="quizSearch"></div>
+                        <select class="filter-select" id="filterDifficulty"><option value="">All Levels</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select>
+                        <select class="filter-select" id="filterSubject"><option value="">All Subjects</option></select>
+                    </div>
+                </div>
+                <div class="quiz-grid" id="quizGrid">
+                    <div class="loading-state"><i class="fas fa-spinner fa-spin"></i><p>Loading quizzes...</p></div>
+                </div>
+            </div>
+
+            <!-- PAGE: RESULTS -->
+            <div class="dash-page" id="page-results">
+                <div class="page-header"><h2><i class="fas fa-chart-bar text-gradient"></i> My Results</h2></div>
+                <div class="results-table-wrap">
+                    <table class="results-table" id="resultsTable">
+                        <thead><tr><th>Quiz</th><th>Subject</th><th>Score</th><th>Percentage</th><th>Date</th><th>Status</th></tr></thead>
+                        <tbody id="resultsBody">
+                            <tr><td colspan="6" class="empty-cell"><div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No results yet</p></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PAGE: LEADERBOARD -->
+            <div class="dash-page" id="page-leaderboard">
+                <div class="page-header"><h2><i class="fas fa-trophy text-gradient"></i> Leaderboard</h2></div>
+                <div class="glass-card dash-card">
+                    <div class="card-body"><div class="empty-state"><i class="fas fa-medal"></i><p>Leaderboard coming soon! Complete quizzes to rank up.</p></div></div>
+                </div>
+            </div>
+
+            <!-- PAGE: PROFILE -->
+            <div class="dash-page" id="page-profile">
+                <div class="page-header"><h2><i class="fas fa-user-circle text-gradient"></i> My Profile</h2></div>
+                <div class="glass-card dash-card profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar"><span>S</span></div>
+                        <div class="profile-info">
+                            <h3 id="profileName">Student</h3>
+                            <p id="profileEmail">student@email.com</p>
+                            <span class="badge badge-student">Student</span>
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; padding:0 24px 24px;">
+                        <div class="profile-detail">
+                            <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Username</span>
+                            <p id="profileUsername" style="font-weight:600;margin-top:4px;">—</p>
+                        </div>
+                        <div class="profile-detail">
+                            <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">College / Institution</span>
+                            <p id="profileCollege" style="font-weight:600;margin-top:4px;">—</p>
+                        </div>
+                        <div class="profile-detail">
+                            <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Department</span>
+                            <p id="profileDept" style="font-weight:600;margin-top:4px;">—</p>
+                        </div>
+                        <div class="profile-detail">
+                            <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Semester</span>
+                            <p id="profileSem" style="font-weight:600;margin-top:4px;">—</p>
+                        </div>
+                        <div class="profile-detail">
+                            <span style="color:var(--text-dim);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;">Member Since</span>
+                            <p id="profileJoined" style="font-weight:600;margin-top:4px;">—</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card dash-card" style="margin-top:24px; border-color:rgba(255,107,107,0.2);">
+                    <div class="card-body" style="padding:24px;">
+                        <h4 style="color:var(--secondary);margin-bottom:8px;"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+                        <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:16px;">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                        <button class="btn btn-sm" id="deleteAccountBtn" style="background:rgba(255,107,107,0.15);color:var(--secondary);border:1px solid var(--secondary);"><i class="fas fa-trash-alt"></i> Delete My Account</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Quiz Rules Modal -->
+    <div class="modal-overlay" id="quizRulesModal">
+        <div class="modal-card modal-lg">
+            <div class="modal-icon" style="background:rgba(108,99,255,0.15);color:var(--primary);"><i class="fas fa-clipboard-list"></i></div>
+            <h3 id="rulesQuizTitle">Quiz Rules</h3>
+            <div class="rules-list">
+                <div class="rule-item"><i class="fas fa-clock"></i><span>The quiz is timed. Keep an eye on the countdown timer.</span></div>
+                <div class="rule-item"><i class="fas fa-ban"></i><span>Do not switch tabs or minimize the browser during the quiz.</span></div>
+                <div class="rule-item"><i class="fas fa-paper-plane"></i><span>Quiz will auto-submit when the timer reaches zero.</span></div>
+                <div class="rule-item"><i class="fas fa-redo"></i><span>You can navigate between questions using Previous/Next.</span></div>
+                <div class="rule-item"><i class="fas fa-exclamation-triangle"></i><span>Once submitted, answers cannot be changed.</span></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="cancelQuizBtn">Cancel</button>
+                <button class="btn btn-primary" id="startQuizBtn"><i class="fas fa-play"></i> Start Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="app.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
