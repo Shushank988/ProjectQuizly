@@ -196,4 +196,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 > [!NOTE]
-> This project was developed as a 2nd year project for educational purposes. Feel free to fork and enhance it!
+> Built by **Shushank Kumar** to practice full-stack development and learn new technologies. If you find this project helpful, feel free to give it a star or fork the repository!
