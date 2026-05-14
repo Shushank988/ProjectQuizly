@@ -12,9 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========== POPULATE USER DATA ==========
     const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
     setEl('userName', userData.name?.split(' ')[0] || 'Student');
-    setEl('avatarInitials', (userData.name || 'S')[0].toUpperCase());
+    
+    const dicebearUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(userData.email || userData.name || 'guest')}`;
+    const topAvatar = document.getElementById('topbarAvatar');
+    if (topAvatar) topAvatar.innerHTML = `<img src="${dicebearUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--primary);">`;
+    
     const profAvatar = document.getElementById('profileAvatar');
-    if (profAvatar) profAvatar.innerHTML = `<span>${(userData.name || 'S')[0].toUpperCase()}</span>`;
+    if (profAvatar) profAvatar.innerHTML = `<img src="${dicebearUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--primary);">`;
+    
     setEl('profileName', userData.name || 'Student');
     setEl('profileEmail', userData.email || '');
 
@@ -337,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </td>
                                 <td>
                                     <div style="display:flex;align-items:center;gap:10px;">
-                                        <div class="user-avatar" style="background:${l.avatar_color || 'var(--primary)'};width:32px;height:32px;font-size:0.9rem;">${l.full_name.charAt(0).toUpperCase()}</div>
+                                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(l.full_name)}" style="width:32px;height:32px;border-radius:50%;background:${l.avatar_color || 'var(--primary)'};object-fit:cover;">
                                         <strong>${l.full_name}</strong>
                                     </div>
                                 </td>

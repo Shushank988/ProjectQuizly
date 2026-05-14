@@ -9,8 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
     setEl('userName', userData.name?.split(' ')[0] || '');
-    setEl('avatarInitials', (userData.name || 'T')[0].toUpperCase());
-    setEl('profInit', (userData.name || 'T')[0].toUpperCase());
+    const dicebearUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(userData.email || userData.name || 'guest')}`;
+    const topAvatar = document.getElementById('topbarAvatar');
+    if (topAvatar) topAvatar.innerHTML = `<img src="${dicebearUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--primary);">`;
+    const profAvatar = document.getElementById('profileAvatar');
+    if (profAvatar) profAvatar.innerHTML = `<img src="${dicebearUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--primary);">`;
     setEl('profName', userData.name || 'Teacher');
     setEl('profEmail', userData.email || '');
     const dateEl = document.getElementById('topbarDate');
