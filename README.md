@@ -176,7 +176,12 @@ The admin account is automatically configured using the credentials in your `.en
 ---
 
 ## 📸 Screenshots
-*(Add your screenshots here after deploying)*
+
+### Homepage
+![Quizly Homepage](screenshots/home.png)
+
+### Authentication
+![Quizly Login & Registration](screenshots/auth.png)
 
 ---
 
