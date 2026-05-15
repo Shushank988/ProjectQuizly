@@ -196,4 +196,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 > [!NOTE]
-> Built by **Shushank Kumar** to practice full-stack development and learn new technologies. If you find this project helpful, feel free to give it a star or fork the repository!
+> Built to practice full-stack development and learn new technologies. If you find this project helpful, feel free to give it a star or fork the repository!
