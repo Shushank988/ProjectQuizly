@@ -54,21 +54,28 @@
 Quizly/
 ├── public/                   # Frontend files
 │   ├── index.html            # Landing page
-│   ├── auth.html             # Login & Register page
-│   ├── student-dashboard.html
-│   ├── teacher-dashboard.html
-│   ├── admin.html
-│   ├── attempt-quiz.html     # Quiz attempt engine
-│   ├── quiz-result.html      # Result breakdown page
-│   ├── styles.css            # Global design system
-│   ├── auth.css              # Auth page styles
-│   ├── dashboard.css         # Dashboard styles
-│   ├── quiz.css              # Quiz attempt styles
-│   ├── app.js                # Shared utilities (toast, nav)
-│   ├── auth.js               # Login/Register logic
-│   ├── dashboard.js          # Student dashboard logic
-│   ├── teacher.js            # Teacher panel logic
-│   └── quiz.js               # Quiz engine logic
+│   ├── assets/               # Shared global assets
+│   │   ├── css/
+│   │   │   └── styles.css    # Global design system
+│   │   └── js/
+│   │       └── app.js        # Shared utilities (toast, nav)
+│   ├── auth/                 # Authentication module
+│   │   ├── auth.html         # Login & Register page
+│   │   ├── auth.js           # Authentication logic
+│   │   └── auth.css          # Authentication styles
+│   ├── dashboard/            # Dashboard module (Student & Teacher)
+│   │   ├── student-dashboard.html  # Student overview & quiz list
+│   │   ├── teacher-dashboard.html  # Teacher quiz management panel
+│   │   ├── dashboard.js      # Student dashboard logic
+│   │   ├── dashboard.css     # Shared dashboard styles
+│   │   └── teacher.js        # Teacher panel logic
+│   ├── quiz/                 # Quiz attempt & results module
+│   │   ├── attempt-quiz.html # Live quiz attempt interface
+│   │   ├── quiz-result.html  # Detailed result & breakdown
+│   │   ├── quiz.js           # Quiz engine & timer logic
+│   │   └── quiz.css          # Quiz interface styles
+│   └── admin/                # Admin administration module
+│       └── admin.html        # Admin user & quiz management
 ├── server.js                 # Express API server
 ├── db.js                     # MySQL connection pool
 ├── database.sql              # Database schema

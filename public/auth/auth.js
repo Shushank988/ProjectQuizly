@@ -207,11 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     if (data.user.role === 'teacher') {
-                        window.location.href = 'teacher-dashboard.html';
+                        window.location.href = '../dashboard/teacher-dashboard.html';
                     } else if (data.user.role === 'admin') {
-                        window.location.href = 'admin.html';
+                        window.location.href = '../admin/admin.html';
                     } else {
-                        window.location.href = 'student-dashboard.html';
+                        window.location.href = '../dashboard/student-dashboard.html';
                     }
                 }, 1200);
             } catch (err) {

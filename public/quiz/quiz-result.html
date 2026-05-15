@@ -6,7 +6,7 @@
     <title>Results — Quizly</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
     <style>
         body { background: var(--dark); }
         .result-page { min-height: 100vh; padding: 40px 20px; display: flex; align-items: center; justify-content: center; }
@@ -87,15 +87,15 @@
                 <div id="breakdownList"></div>
             </div>
             <div class="result-actions">
-                <a href="student-dashboard.html" class="btn btn-outline"><i class="fas fa-th-large"></i> Dashboard</a>
-                <a href="student-dashboard.html" class="btn btn-primary" onclick="localStorage.removeItem('latest_result');"><i class="fas fa-redo"></i> Take Another Quiz</a>
+                <a href="../dashboard/student-dashboard.html" class="btn btn-outline"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="../dashboard/student-dashboard.html" class="btn btn-primary" onclick="localStorage.removeItem('latest_result');"><i class="fas fa-redo"></i> Take Another Quiz</a>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const result = JSON.parse(localStorage.getItem('latest_result'));
-            if (!result) { window.location.href = 'student-dashboard.html'; return; }
+            if (!result) { window.location.href = '../dashboard/student-dashboard.html'; return; }
 
             const pct = result.percentage || Math.round((result.total_score / result.total_possible_marks) * 100);
             const passed = pct >= 50;

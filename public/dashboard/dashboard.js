@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
 
     // Redirect if not logged in
-    if (!token) { window.location.href = 'auth.html'; return; }
+    if (!token) { window.location.href = '../auth/auth.html'; return; }
 
     // ========== POPULATE USER DATA ==========
     const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
         localStorage.removeItem('jwt_token');
         localStorage.removeItem('user_data');
-        window.location.href = 'auth.html';
+        window.location.href = '../auth/auth.html';
     });
 
     // ========== NOTIFICATIONS ==========
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (res.status === 401 || res.status === 403) {
                 localStorage.removeItem('jwt_token');
                 localStorage.removeItem('user_data');
-                window.location.href = 'auth.html';
+                window.location.href = '../auth/auth.html';
                 return null;
             }
             const data = await res.json();
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('startQuizBtn')?.addEventListener('click', () => {
         if (selectedQuizId) {
-            window.location.href = `attempt-quiz.html?quiz_id=${selectedQuizId}`;
+            window.location.href = `../quiz/attempt-quiz.html?quiz_id=${selectedQuizId}`;
         }
     });
 
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('jwt_token');
             localStorage.removeItem('user_data');
             alert('Your account has been permanently deleted.');
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         } catch (err) {
             showToast(err.message || 'Failed to delete account.', 'error');
         }

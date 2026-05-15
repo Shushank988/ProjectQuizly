@@ -4,11 +4,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const API = 'http://localhost:5000/api';
     const token = localStorage.getItem('jwt_token');
-    if (!token) { window.location.href = 'auth.html'; return; }
+    if (!token) { window.location.href = '../auth/auth.html'; return; }
 
     const urlParams = new URLSearchParams(window.location.search);
     const quizId = urlParams.get('quiz_id');
-    if (!quizId) { alert('No quiz selected!'); window.location.href = 'student-dashboard.html'; return; }
+    if (!quizId) { alert('No quiz selected!'); window.location.href = '../dashboard/student-dashboard.html'; return; }
 
     let questions = [];
     let currentIndex = 0;
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (token) headers['Authorization'] = `Bearer ${token}`;
         const res = await fetch(`${API}${endpoint}`, { ...options, headers });
         if (res.status === 401 || res.status === 403) {
-            window.location.href = 'auth.html'; return null;
+            window.location.href = '../auth/auth.html'; return null;
         }
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);

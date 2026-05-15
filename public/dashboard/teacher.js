@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const API = 'http://localhost:5000/api';
     const token = localStorage.getItem('jwt_token');
     const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-    if (!token || userData.role !== 'teacher') { window.location.href = 'auth.html'; return; }
+    if (!token || userData.role !== 'teacher') { window.location.href = '../auth/auth.html'; return; }
 
     const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
     setEl('userName', userData.name?.split(' ')[0] || '');
@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     links.forEach(l => l.addEventListener('click', e => { e.preventDefault(); switchPage(l.dataset.page); }));
     document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar')?.classList.toggle('open'));
     document.getElementById('sidebarClose')?.addEventListener('click', () => document.getElementById('sidebar')?.classList.remove('open'));
-    document.getElementById('logoutBtn')?.addEventListener('click', () => { localStorage.clear(); window.location.href = 'auth.html'; });
+    document.getElementById('logoutBtn')?.addEventListener('click', () => { localStorage.clear(); window.location.href = '../auth/auth.html'; });
 
     async function apiFetch(endpoint, options = {}) {
         const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...options.headers };
         const res = await fetch(`${API}${endpoint}`, { ...options, headers });
-        if (res.status === 401 || res.status === 403) { localStorage.clear(); window.location.href = 'auth.html'; return null; }
+        if (res.status === 401 || res.status === 403) { localStorage.clear(); window.location.href = '../auth/auth.html'; return null; }
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
         return data;
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await apiFetch('/account/delete', { method: 'DELETE' });
             localStorage.clear();
             alert('Your account and all associated data have been permanently deleted.');
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         } catch (err) {
             showToast(err.message || 'Failed to delete account.', 'error');
         }

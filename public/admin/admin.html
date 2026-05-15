@@ -6,13 +6,13 @@
     <title>Admin Panel — Quizly</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
 </head>
 <body class="dashboard-body">
 <div class="dash-layout">
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header"><a href="index.html" class="nav-logo"><i class="fas fa-bolt text-gradient"></i><span>Quizly</span></a><button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button></div>
+        <div class="sidebar-header"><a href="../index.html" class="nav-logo"><i class="fas fa-bolt text-gradient"></i><span>Quizly</span></a><button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button></div>
         <nav class="sidebar-nav">
             <a href="#" class="sidebar-link active" data-page="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
             <a href="#" class="sidebar-link" data-page="users"><i class="fas fa-users"></i><span>Manage Users</span></a>
@@ -72,13 +72,13 @@
     </div>
 </div>
 <div id="toastContainer" class="toast-container"></div>
-<script src="app.js"></script>
+<script src="../assets/js/app.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const API = 'http://localhost:5000/api';
     const token = localStorage.getItem('jwt_token');
     const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-    if (!token || userData.role !== 'admin') { window.location.href = 'auth.html'; return; }
+    if (!token || userData.role !== 'admin') { window.location.href = '../auth/auth.html'; return; }
 
     document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -89,12 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
     links.forEach(l => l.addEventListener('click', e => { e.preventDefault(); sw(l.dataset.page); }));
     document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar')?.classList.toggle('open'));
     document.getElementById('sidebarClose')?.addEventListener('click', () => document.getElementById('sidebar')?.classList.remove('open'));
-    document.getElementById('logoutBtn')?.addEventListener('click', () => { localStorage.clear(); window.location.href = 'auth.html'; });
+    document.getElementById('logoutBtn')?.addEventListener('click', () => { localStorage.clear(); window.location.href = '../auth/auth.html'; });
 
     async function api(endpoint, options = {}) {
         const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...options.headers };
         const res = await fetch(`${API}${endpoint}`, { ...options, headers });
-        if (res.status === 401 || res.status === 403) { localStorage.clear(); window.location.href = 'auth.html'; return null; }
+        if (res.status === 401 || res.status === 403) { localStorage.clear(); window.location.href = '../auth/auth.html'; return null; }
         const data = await res.json(); if (!res.ok) throw new Error(data.error); return data;
     }
 

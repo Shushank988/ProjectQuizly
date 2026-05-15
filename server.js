@@ -509,6 +509,7 @@ async function startServer() {
                     'UPDATE users SET email = ?, password = ? WHERE role = "admin"',
                     [adminEmail, hash]
                 );
+                console.log(`🔐 Admin account updated: ${adminEmail}`);
             }
         }
         
