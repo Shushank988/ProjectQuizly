@@ -141,10 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const role = document.querySelector('input[name="role"]:checked');
         if (role) filled++;
-        const terms = document.getElementById('agreeTerms');
-        if (terms && terms.checked) filled++;
 
-        const total = fields.length + 2; // +role +terms
+        const total = fields.length + 1; // +role
         const pct = Math.round((filled / total) * 100);
         const bar = document.getElementById('formProgressBar');
         const text = document.getElementById('formProgressText');
@@ -236,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('registerPassword').value;
             const confirm = document.getElementById('confirmPassword').value;
             const role = document.querySelector('input[name="role"]:checked')?.value;
-            const terms = document.getElementById('agreeTerms').checked;
             const btn = document.getElementById('registerBtn');
 
             // Validation
@@ -247,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!emailRe.test(email)) { showToast('Please enter a valid email.', 'error'); return; }
             if (password.length < 6) { showToast('Password must be at least 6 characters.', 'error'); return; }
             if (password !== confirm) { showToast('Passwords do not match.', 'error'); return; }
-            if (!terms) { showToast('Please agree to Terms & Conditions.', 'error'); return; }
 
             btn.classList.add('loading');
             btn.disabled = true;
